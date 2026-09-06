@@ -26,6 +26,7 @@ STM32 定时器内部有：
 - **CCR（捕获比较寄存器）**：决定高电平持续时间
 我们打开STM32CubeMX，忽略其它的配置，专门看定时器生成PWM方波这一块的配置
 我们在TIM2的Channel1选择PWM Generation CH1，这样STM32就会在TIM2-CH1对应的引脚按照我们配置的参数输出PWM方波
+ARR的值由Counter Period来决定
 ![](1.png)
 下面就是我们可以配置的PWM方波的参数
 ![](2.png)
