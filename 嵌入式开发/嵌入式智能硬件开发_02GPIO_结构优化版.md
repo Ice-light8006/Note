@@ -120,7 +120,7 @@ flowchart LR
 | 位于两个阈值之间 | 结果不确定 | 应避免长期停留 |
 | 高于高电平最小阈值 | 可靠的逻辑 1 | 不得超过允许电压 |
 
-![GPIO 输入电平与施密特触发](assets/02GPIO/image_006.png)
+![GPIO 输入电平与施密特触发](嵌入式开发/assets/02GPIO/image_006.png)
 
 > 具体阈值随芯片型号、供电电压和引脚类型变化，最终必须查阅对应数据手册。
 
@@ -195,7 +195,7 @@ GPIO 引脚内部并不是一根导线，而是由输入通道、输出通道、
 
 理解 GPIO 内部结构，需要沿着两条信号路径观察：外部电平如何进入输入寄存器，以及输出寄存器中的数据如何经过驱动电路到达物理引脚。
 
-![STM32F1 GPIO 内部结构](assets/02GPIO/image_004.png)
+![STM32F1 GPIO 内部结构](嵌入式开发/assets/02GPIO/image_004.png)
 
 ```mermaid
 flowchart LR
@@ -232,7 +232,7 @@ flowchart LR
     BUS --> CPU[CPU 读取]
 ```
 
-![GPIO 输入通道](assets/02GPIO/image_005.png)
+![GPIO 输入通道](嵌入式开发/assets/02GPIO/image_005.png)
 
 > `GPIOx_IDR` 反映的是引脚当前实际电平。即使引脚配置为输出，也可以读取 IDR 来观察物理引脚上的电平。
 
@@ -250,7 +250,7 @@ flowchart LR
     PIN --> DEVICE[外部设备]
 ```
 
-![GPIO 输出通道](assets/02GPIO/image_008.png)
+![GPIO 输出通道](嵌入式开发/assets/02GPIO/image_008.png)
 
 > 写 ODR 或 BSRR 改变的是输出锁存值；物理引脚是否真正达到预期电平，还受到工作模式、外部电路和负载能力的影响。
 
@@ -391,9 +391,9 @@ flowchart TB
 | 1 | 导通 | 关闭 | 主动输出高电平 |
 | 0 | 关闭 | 导通 | 主动输出低电平 |
 
-![推挽输出高电平](assets/02GPIO/image_009.png)
+![推挽输出高电平](嵌入式开发/assets/02GPIO/image_009.png)
 
-![推挽输出低电平](assets/02GPIO/image_010.png)
+![推挽输出低电平](嵌入式开发/assets/02GPIO/image_010.png)
 
 **特点：**
 
@@ -419,9 +419,9 @@ flowchart TB
 | 0 | 导通 | 主动拉低 |
 | 1 | 关闭 | 高阻态，由上拉电阻拉高 |
 
-![开漏输出低电平](assets/02GPIO/image_011.png)
+![开漏输出低电平](嵌入式开发/assets/02GPIO/image_011.png)
 
-![开漏输出释放后由外部上拉](assets/02GPIO/image_012.png)
+![开漏输出释放后由外部上拉](嵌入式开发/assets/02GPIO/image_012.png)
 
 **为什么开漏适合多设备共线？**
 

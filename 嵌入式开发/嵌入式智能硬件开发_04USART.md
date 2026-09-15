@@ -162,7 +162,7 @@ flowchart TD
 | 半双工 | 双向交替传输   | RS485 两线制、单线通信 |
 | 全双工 | 双向同时传输   | UART 独立 TX/RX  |
 
-![USART 全双工连接](assets/04USART/image_007.png)
+![USART 全双工连接](嵌入式开发/assets/04USART/image_007.png)
 
 串口设备连接时需要交叉连接信号：
 
@@ -186,7 +186,7 @@ flowchart TD
 
 同步通信通常增加一根时钟线。发送端在数据线上放置数据，同时在时钟线上产生周期性跳变；接收端根据约定的时钟边沿采样数据。
 
-![同步通信：时钟信号与数据信号](assets/04USART/image_003.png)
+![同步通信：时钟信号与数据信号](嵌入式开发/assets/04USART/image_003.png)
 
 ```mermaid
 sequenceDiagram
@@ -243,7 +243,7 @@ flowchart LR
 
 异步通信没有单独的时钟线。发送端和接收端各自使用本地时钟，并提前约定相同的波特率和数据帧格式。
 
-![异步通信：仅传输数据信号](assets/04USART/image_004.png)
+![异步通信：仅传输数据信号](嵌入式开发/assets/04USART/image_004.png)
 
 ```mermaid
 flowchart LR
@@ -359,7 +359,7 @@ flowchart LR
 
 异步串口以“帧”为单位传输字符。一帧通常由起始位、数据位、可选校验位和停止位组成。
 
-![串口数据帧](assets/04USART/image_005.png)
+![串口数据帧](嵌入式开发/assets/04USART/image_005.png)
 
 ```text
 空闲    起始位      数据位（低位先发）       校验位    停止位    空闲
@@ -541,7 +541,7 @@ USART 是 **Universal Synchronous/Asynchronous Receiver/Transmitter**，支持�
 
 STM32 项目中最常用的是 USART 的异步 UART 模式。
 
-![STM32 USART 功能对比](assets/04USART/image_006.png)
+![STM32 USART 功能对比](嵌入式开发/assets/04USART/image_006.png)
 
 ### 4.2 核心特性
 
@@ -556,7 +556,7 @@ STM32 项目中最常用的是 USART 的异步 UART 模式。
 
 ### 4.3 功能结构
 
-![STM32 USART 功能框图](assets/04USART/image_009.png)
+![STM32 USART 功能框图](嵌入式开发/assets/04USART/image_009.png)
 
 ```mermaid
 flowchart LR
@@ -659,7 +659,7 @@ flowchart LR
 
 波特率由 USART 外设时钟和 BRR 分频值共同决定。
 
-![USART 波特率计算](assets/04USART/image_013.png)
+![USART 波特率计算](嵌入式开发/assets/04USART/image_013.png)
 
 在 STM32F103、USART1 时钟为 72 MHz、16 倍过采样时：
 
@@ -674,7 +674,7 @@ BRR = (39 << 4) | 1 = 0x0271
 USART1->BRR = 0x0271U;
 ```
 
-![USART 波特率误差表示例](assets/04USART/image_014.png)
+![USART 波特率误差表示例](嵌入式开发/assets/04USART/image_014.png)
 
 > `0x0271` 只适用于外设时钟为 72 MHz、目标波特率为 115200 等特定条件。时钟或波特率变化后必须重新计算。
 
@@ -908,13 +908,13 @@ flowchart LR
 
 | 创建工程 | 选择 MCU |
 |---|---|
-| ![创建 STM32CubeMX 工程](assets/04USART/image_015.png) | ![选择 MCU 型号](assets/04USART/image_017.png) |
+| ![创建 STM32CubeMX 工程](嵌入式开发/assets/04USART/image_015.png) | ![选择 MCU 型号](嵌入式开发/assets/04USART/image_017.png) |
 
 #### 7.1.2 调试与时钟
 
 | 配置调试接口 | 配置 RCC |
 |---|---|
-| ![配置 Serial Wire 调试](assets/04USART/image_022.png) | ![配置 RCC 时钟源](assets/04USART/image_023.png) |
+| ![配置 Serial Wire 调试](嵌入式开发/assets/04USART/image_022.png) | ![配置 RCC 时钟源](嵌入式开发/assets/04USART/image_023.png) |
 
 > CubeMX 中的 `Serial Wire` 指 SWD 下载调试接口，不是 USART 串口。建议保留 SWD，避免将调试引脚误作普通 GPIO 后无法正常连接调试器。
 
@@ -922,17 +922,17 @@ flowchart LR
 
 | 选择 USART | 配置串口参数 |
 |---|---|
-| ![选择 USART 外设](assets/04USART/image_025.png) | ![配置 USART 参数](assets/04USART/image_027.png) |
+| ![选择 USART 外设](嵌入式开发/assets/04USART/image_025.png) | ![配置 USART 参数](嵌入式开发/assets/04USART/image_027.png) |
 
 | 开启 USART 中断 | 检查 GPIO 引脚 |
 |---|---|
-| ![配置 USART NVIC](assets/04USART/image_030.png) | ![检查 USART GPIO](assets/04USART/image_031.png) |
+| ![配置 USART NVIC](嵌入式开发/assets/04USART/image_030.png) | ![检查 USART GPIO](嵌入式开发/assets/04USART/image_031.png) |
 
 #### 7.1.4 生成代码
 
 | 工程设置 | 代码生成 |
 |---|---|
-| ![配置工程名称与工具链](assets/04USART/image_032.png) | ![生成工程代码](assets/04USART/image_036.png) |
+| ![配置工程名称与工具链](嵌入式开发/assets/04USART/image_032.png) | ![生成工程代码](嵌入式开发/assets/04USART/image_036.png) |
 
 生成的 `main()` 通常已经调用：
 
@@ -1192,7 +1192,7 @@ printf("count = %lu\r\n", (unsigned long)count);
 
 ### 8.4 Keil 设置
 
-![Keil MicroLIB 设置](assets/04USART/image_039.png)
+![Keil MicroLIB 设置](嵌入式开发/assets/04USART/image_039.png)
 
 不同 C 库和编译器版本的重定向方式可能不同。若出现链接错误或无输出，应检查：
 
