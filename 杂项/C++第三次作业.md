@@ -1,3 +1,4 @@
+```cpp
 #include <iostream>
 #include <vector>
 #include <conio.h>
@@ -205,3 +206,4 @@ int main()
     }
     return 0;
 }
+```
