@@ -264,6 +264,18 @@ git push -u origin main
 git pull
 ```
 作用：把远程仓库同步到本地代码，常用于拉取别人更新的文件
+如果你执行
+```bash
+git pull origin main
+```
+作用：把origin指向的远程仓库的main分支拉下来并自动合并到你当前所在的分支上
+实际上这个命令等价于执行下面这两个命令
+```bash
+git fetch origin
+git merge origin/main
+```
+`get fetch origin`的作用：只把远程仓库的最新代码**下载**到本地，但**不合并**到你的当前分支
+`git merge origin/main`的作用：把下载下来的远程内容**合并**到你当前正在编辑的分支里
 # 分支（branch）
 分支用于开发新功能。
 该命令可以查看当前所有的分支列表
