@@ -27,7 +27,7 @@ git config --global user.email "你的邮箱"
 假如说我执行
 ```bash
 git config --global user.name "Ice light"
-git config --global user.emaill "xxx@gmail.com"
+git config --global user.email "xxx@gmail.com"
 ```
 那么，在一次提交中，如果执行
 ```bash
@@ -60,7 +60,7 @@ commit里的邮箱
 xxx@gmail.com
 ```
 你本地：
-```
+```bash
 git config --global user.email "xxx@gmail.com"
 ```
 那么你的 commit：
@@ -78,7 +78,23 @@ Git配置命令的格式
 git config [作用范围] 配置项 配置值
 ```
 这里作用范围如果写`--global`就是全局配置，如果不写那就是项目配置
-全局配置，意思就是你所有的项目全都使用一个用户名和邮箱。而项目配置则是针对某一个项目的身份信息的配置。如果同时配置了全局配置和项目配置，那么在使用Git推送这个项目时，则会优先使用项目配置
+全局配置，意思就是你所有的项目全都使用一个用户名和邮箱。而项目配置则是针对某一个项目的身份信息的配置。如果同时配置了全局配置和项目配置，那么在使用Git进行commit这个项目时，则会优先使用项目配置
+
+---
+另外要明确：
+```
+user.name
+user.email
+```
+只是写进 commit 的作者信息，并不是 GitHub 登录账号，也不负责鉴权。
+也就是：
+```
+Git commit 身份        GitHub 推送身份
+user.name/email        Token / SSH 等鉴权
+       ↓                     ↓
+“谁写的提交”            “谁有权限 push”
+```
+这是两套东西。
 
 # 创建Git仓库
 假设一个项目的项目目录的结构如下
@@ -134,12 +150,16 @@ Git有三个区域：工作区，暂存区，版本库
 ```bash
 git add .
 ```
-把项目中所有文件添加到暂存区
+`git add .`命令的作用是把当前目录及其子目录下的变化加入暂存区，包括：
+- 新增文件
+- 修改文件
+- 删除文件
+同时还会受到 `.gitignore` 影响。
 然后再使用
 ```bash
 git commit
 ```
-把暂存区中所有文件推送到版本库。
+git commit 将暂存区当前记录的内容创建为一个新的提交（commit），保存到本地 Git 仓库中。
 
 ---
 例如如果我们执行
@@ -155,10 +175,6 @@ Untracked files:
 ```bash
 git add main.c
 ```
-这时候再执行
-```bash
-git commit
-```
 然后再执行
 ```bash
 git status
@@ -168,7 +184,38 @@ git status
 Changes to be committed:
     new file: main.c
 ```
-表示这些修改已经准备提交
+这表明：
+> main.c 已经进入暂存区，等待 commit。
+
+这时候再执行
+```bash
+git commit -m "对这次提交的说明"
+```
+执行完这个命令之后就代表着提交成功
+然后再执行
+```bash
+git status
+```
+得到的就是
+```
+nothing to commit, working tree clean
+```
+所以完整的状态变化其实是：
+```
+未跟踪
+Untracked files
+    │
+    │ git add
+    ▼
+已暂存
+Changes to be committed
+    │
+    │ git commit
+    ▼
+已提交
+nothing to commit
+```
+
 # 查看提交历史
 命令
 ```bash
@@ -201,7 +248,7 @@ https://github.com/user/project.git
 然后这里`origin`是给这个远程仓库起的别名。
 对于一个项目，可以有很多个远程仓库
 例如如果执行
-```
+```bash
 git remote add origin https://github.com/user/project.git
 git remote add other https://github.com/user/other.git
 ```
@@ -212,7 +259,7 @@ other -> https://github.com/user/other.git
 ```
 
 ---
-在第一次创建远程仓库的时候，首先需要执行
+第一次创建仓库，如果当前主分支不是 main，而你希望把它命名为 main，执行：
 ```bash
 git branch -M main
 ```
@@ -221,7 +268,7 @@ git branch -M main
 ```bash
 git push origin main
 ```
-意思就是把当前项目推送到origin指向的远程仓库的main分支
+意思就是把当前项目中的分支提交历史推送到origin指向的远程仓库的main分支
 但是这样写，每次都要写全推送到哪个仓库，推送到哪个分支
 如果加一个`-u`
 ```bash
@@ -274,7 +321,7 @@ git pull origin main
 git fetch origin
 git merge origin/main
 ```
-`get fetch origin`的作用：只把远程仓库的最新代码**下载**到本地，但**不合并**到你的当前分支
+`git fetch origin`的作用：只把远程仓库的最新代码**下载**到本地，但**不合并**到你的当前分支
 `git merge origin/main`的作用：把下载下来的远程内容**合并**到你当前正在编辑的分支里
 # 分支（branch）
 分支用于开发新功能。
