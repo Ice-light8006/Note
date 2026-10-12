@@ -27,7 +27,7 @@ git config --global user.email "你的邮箱"
 假如说我执行
 ```bash
 git config --global user.name "Ice light"
-git config --global user.emaill "xxx@gmail.com"
+git config --global user.email "xxx@gmail.com"
 ```
 那么，在一次提交中，如果执行
 ```bash
@@ -357,9 +357,10 @@ Project/
 ```gitigore
 *.py
 ```
-这时候会忽略所有后缀为`py`的文件，即Python代码文件
+这时候会忽略所有后缀为`.py`的文件，也会忽略名称以`.py`为结尾的文件夹
 如果我们的项目中有一些辅助开发而写的Python的脚本，并且这些脚本本身与项目无关，我们就可以在`.gitignore`中写上`*.py`，这时候就会忽略这些Python脚本
-另外一定要注意，如果写`*.py`，只会忽略所有后缀为`py`的文件，而不会忽略符合`*.py`的文件夹，例如有一个文件夹名为`m.py`，其不会被忽略
+另外一定要注意，如果写`*.py`，不仅会忽略`.py`文件，还会忽略符合`*.py`的文件夹
+例如项目中有一个文件夹名为`m.py`，同样会被忽略
 ## 3. 文件目录
 `/`表示**仓库根目录**
 如果你写
