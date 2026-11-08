@@ -1,0 +1,3 @@
+API是Application Programming Interface的缩写
+Interface是接口的意思
+API的意思是应用程序编程接口
